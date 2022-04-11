@@ -2,6 +2,7 @@ name: system_boot_time
 description: Flutter plugin for get system boot time.
 version: 0.0.1-dev.1
 homepage:
+  https://github.com/niwaguan/system_boot_time
 
 environment:
   sdk: ">=2.16.0 <3.0.0"
