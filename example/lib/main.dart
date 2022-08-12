@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:system_boot_time/system_boot_time.dart';
 
@@ -16,7 +16,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  String _seconds = "Unknown";
   final _systemBootTimePlugin = SystemBootTime();
 
   @override
@@ -31,8 +31,8 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion =
-          await _systemBootTimePlugin.getPlatformVersion() ?? 'Unknown platform version';
+      final time = await _systemBootTimePlugin.second();
+      platformVersion = "seconds: $time";
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     setState(() {
-      _platformVersion = platformVersion;
+      _seconds = platformVersion;
     });
   }
 
@@ -55,7 +55,13 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Text('$_seconds\n'),
+        ),
+        floatingActionButton: IconButton(
+          icon: const Icon(Icons.refresh),
+          onPressed: () {
+            initPlatformState();
+          },
         ),
       ),
     );

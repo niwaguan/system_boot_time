@@ -1,20 +1,24 @@
 #import "SystemBootTimePlugin.h"
+#import "SystemBootTime.h"
+
+@interface SystemBootTimePlugin () <SystemBootTime>
+
+@end
 
 @implementation SystemBootTimePlugin
+
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  FlutterMethodChannel* channel = [FlutterMethodChannel
-      methodChannelWithName:@"system_boot_time"
-            binaryMessenger:[registrar messenger]];
-  SystemBootTimePlugin* instance = [[SystemBootTimePlugin alloc] init];
-  [registrar addMethodCallDelegate:instance channel:channel];
+    SystemBootTimePlugin *instance = [[SystemBootTimePlugin alloc] init];
+    [registrar publish:instance];
+    SystemBootTimeSetup(registrar.messenger, instance);
 }
 
-- (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
-  if ([@"getPlatformVersion" isEqualToString:call.method]) {
-    result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
-  } else {
-    result(FlutterMethodNotImplemented);
-  }
+- (nullable NSNumber *)secondWithError:(FlutterError * _Nullable __autoreleasing * _Nonnull)error {
+    struct timespec ts;
+    if (@available(iOS 10.0, *)) {
+        clock_gettime(CLOCK_MONOTONIC, &ts);
+    }
+    return @(ts.tv_sec);
 }
 
 @end

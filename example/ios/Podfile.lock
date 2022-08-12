@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - system_boot_time (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - system_boot_time (from `.symlinks/plugins/system_boot_time/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  system_boot_time:
+    :path: ".symlinks/plugins/system_boot_time/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  system_boot_time: fa4a08e68a0f43a127d38ff20c74ccc86813a143
+
+PODFILE CHECKSUM: 8e679eca47255a8ca8067c4c67aab20e64cb974d
+
+COCOAPODS: 1.11.3
